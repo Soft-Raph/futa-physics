@@ -1,0 +1,39 @@
+version: "3.7"
+services:
+  authentication_service:
+    build:
+      context: .
+    restart: unless-stopped
+    tty: true
+    container_name: authentication_service
+    environment:
+      APP_NAME: Authentication Service
+    volumes:
+      - ./:/var/www/app
+      - /var/www/app/vendor
+    ports:
+      - "8090:80"
+    networks:
+      - cico_ms_service
+
+  authentication_service_redis:
+    image: redis:latest
+    container_name: authentication_service_redis
+    restart: unless-stopped
+    tty: true
+    expose:
+      - 6379
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - redisdata:/data
+    networks:
+      - cico_ms_service
+
+networks:
+  cico_ms_service:
+    driver: bridge
+
+#Volumes
+volumes:
+  redisdata:
+    driver: local
