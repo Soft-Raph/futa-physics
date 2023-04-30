@@ -10,3 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+\Illuminate\Support\Facades\Route::get('/test', function (){
+   dd('yes');
+});
