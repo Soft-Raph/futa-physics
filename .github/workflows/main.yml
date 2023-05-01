@@ -48,8 +48,8 @@ jobs:
         run: |
           npm install
           npm run build
-          php artisan migrate
           php artisan optimize:clear
+          php artisan migrate
           git reset --hard
 
       - name: 📂 Sync folders and files to the server
